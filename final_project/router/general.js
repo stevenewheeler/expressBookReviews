@@ -51,6 +51,59 @@ public_users.post("/register", (req,res) => {
     return res.status(404).json({message: "Unable to register user."});
 });
 
+
+// ASYNCHRONOUS METHODS //
+
+public_users.get("/get-books",function (req, res) {
+    
+    const get_books = new Promise((resolve, reject) => {
+      resolve(res.send(JSON.stringify({ books }, null, 4)));
+    });
+
+    get_books.then(() => console.log("Promise Resolved: Get Books"));
+    
+});
+  
+
+public_users.get("/get-books-ISBN",function (req, res) {
+    
+    const isbn = req.params.isbn
+    const get_books_ISBN = new Promise((resolve, reject) => {
+      if(req.params.isbn <=10) {
+      resolve(res.send(books[isbn]));
+    }
+      else {
+      reject(res.send("ISBN Not Found"));
+      }
+    });
+
+    get_books_ISBN.then(() => console.log("Promise Resolved: Get Books by ISBN"));
+  
+});
+
+public_users.get("/get-books-author",function (req, res) {
+    
+    const get_books_author = new Promise((resolve, reject) => {
+      resolve(res.send(JSON.stringify({ books }, null, 4)));
+    });
+
+    get_books_author.then(() => console.log("Promise Resolved: Get Books by Author"));
+  
+});
+
+public_users.get("/get-books-title",function (req, res) {
+    
+    const get_books_title = new Promise((resolve, reject) => {
+      resolve(res.send(JSON.stringify({ books }, null, 4)));
+    });
+
+    get_books_title.then(() => console.log("Promise Resolved: Get Books by Title"));
+  
+});
+
+
+// SYNCHRONOUS METHODS //
+
 // Get the book list available in the shop
 public_users.get('/',function (req, res) {
   // Send JSON response with formatted friends data
