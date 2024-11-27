@@ -84,7 +84,20 @@ public_users.get("/get-books-ISBN",function (req, res) {
 public_users.get("/get-books-author",function (req, res) {
     
     const get_books_author = new Promise((resolve, reject) => {
+
+    let booksbyauthor = [];
+    let isbns = Object.keys(books);
+    isbns.forEach((isbn) => {
+      if(books[isbn]["author"] === req.params.author) {
+        booksbyauthor.push({"isbn":isbn,
+                            "title":books[isbn]["title"],
+                            "reviews":books[isbn]["reviews"]});
       resolve(res.send(JSON.stringify({ books }, null, 4)));
+    }
+
+    });
+    reject(res.send("Author does not exist "))
+        
     });
 
     get_books_author.then(() => console.log("Promise Resolved: Get Books by Author"));
@@ -94,7 +107,19 @@ public_users.get("/get-books-author",function (req, res) {
 public_users.get("/get-books-title",function (req, res) {
     
     const get_books_title = new Promise((resolve, reject) => {
+    let booksbytitle = [];
+    let isbns = Object.keys(books);
+    isbns.forEach((isbn) => {
+      if(books[isbn]["title"] === req.params.title) {
+        booksbytitle.push({"isbn":isbn,
+                           "author":books[isbn]["author"],
+                           "reviews":books[isbn]["reviews"]});
       resolve(res.send(JSON.stringify({ books }, null, 4)));
+    }
+
+    });
+    reject(res.send("Title does not exist "))
+
     });
 
     get_books_title.then(() => console.log("Promise Resolved: Get Books by Title"));
@@ -140,8 +165,8 @@ public_users.get('/title/:title',function (req, res) {
     isbns.forEach((isbn) => {
       if(books[isbn]["title"] === req.params.title) {
         booksbytitle.push({"isbn":isbn,
-                            "author":books[isbn]["author"],
-                            "reviews":books[isbn]["reviews"]});
+                           "author":books[isbn]["author"],
+                           "reviews":books[isbn]["reviews"]});
       }
     });
     res.send(JSON.stringify({booksbytitle}, null, 4));
