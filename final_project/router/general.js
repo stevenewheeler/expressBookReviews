@@ -54,6 +54,7 @@ public_users.post("/register", (req,res) => {
 
 // ASYNCHRONOUS METHODS //
 
+// Get the book list available in the shop with get books promise
 public_users.get("/get-books",function (req, res) {
     
     const get_books = new Promise((resolve, reject) => {
@@ -64,7 +65,7 @@ public_users.get("/get-books",function (req, res) {
     
 });
   
-
+// Get book details based on ISBN with get books ISBN promise
 public_users.get("/get-books-ISBN",function (req, res) {
     
     const isbn = req.params.isbn
@@ -81,6 +82,7 @@ public_users.get("/get-books-ISBN",function (req, res) {
   
 });
 
+// Get book details based on author with get books author promise
 public_users.get("/get-books-author",function (req, res) {
     
     const get_books_author = new Promise((resolve, reject) => {
@@ -104,6 +106,7 @@ public_users.get("/get-books-author",function (req, res) {
   
 });
 
+// Get book details based on title with get books title promise
 public_users.get("/get-books-title",function (req, res) {
     
     const get_books_title = new Promise((resolve, reject) => {
@@ -131,7 +134,6 @@ public_users.get("/get-books-title",function (req, res) {
 
 // Get the book list available in the shop
 public_users.get('/',function (req, res) {
-  // Send JSON response with formatted friends data
     res.send(JSON.stringify(books,null,4));
   return res.status(300).json({message: "Yet to be implemented"});
 });
